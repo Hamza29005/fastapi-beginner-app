@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Restaurant</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fff;
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #d4af37;
+        }
+
+        /* Hero Section */
+        #home {
+            margin-top: 60px;
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        .cta-button {
+            background: #d4af37;
+            color: #fff;
+            padding: 15px 40px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: #b8941f;
+        }
+
+        /* Introduction Section */
+        .intro {
+            padding: 80px 5%;
+            text-align: center;
+            background: #f9f9f9;
+        }
+
+        .intro h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 300;
+            color: #333;
+        }
+
+        .intro p {
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Menu Section */
+        #menu {
+            padding: 80px 5%;
+            min-height: 100vh;
+            background: #fff;
+        }
+
+        #menu h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .menu-item {
+            padding: 30px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .menu-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .menu-item p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Book a Table Section */
+        #book {
+            padding: 80px 5%;
+            min-height: 100vh;
+            background: #f9f9f9;
+        }
+
+        #book h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .booking-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-button {
+            width: 100%;
+            background: #d4af37;
+            color: #fff;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .submit-button:hover {
+            background: #b8941f;
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 80px 5%;
+            min-height: 100vh;
+            background: #fff;
+        }
+
+        #contact h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .contact-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+        }
+
+        .contact-item p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 30px 5%;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .intro h2,
+            #menu h2,
+            #book h2,
+            #contact h2 {
+                font-size: 2rem;
+            }
+
+            .booking-form {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            nav ul {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Chatbot Widget */
+        .chatbot-widget {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            max-height: 500px;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            color: #fff;
+            padding: 20px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .chatbot-close {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: background 0.3s;
+            line-height: 1;
+        }
+
+        .chatbot-close:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .chatbot-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f9f9f9;
+            min-height: 300px;
+            max-height: 350px;
+        }
+
+        .chatbot-message {
+            margin-bottom: 15px;
+            padding: 12px 15px;
+            border-radius: 10px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+
+        .chatbot-message.bot {
+            background: #e8e8e8;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        .chatbot-message.user {
+            background: #d4af37;
+            color: #fff;
+            margin-left: auto;
+            text-align: right;
+            display: block;
+            float: right;
+            clear: both;
+        }
+
+        .chatbot-input-area {
+            display: flex;
+            padding: 15px;
+            background: #fff;
+            border-top: 1px solid #e0e0e0;
+            gap: 10px;
+        }
+
+        .chatbot-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .chatbot-input:focus {
+            border-color: #d4af37;
+        }
+
+        .chatbot-send-btn {
+            background: #d4af37;
+            color: #fff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .chatbot-send-btn:hover {
+            background: #b8941f;
+            transform: translateY(-2px);
+        }
+
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #d4af37, #b8941f);
+            border-radius: 50%;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 5px 25px rgba(212, 175, 55, 0.6);
+        }
+
+        .chatbot-widget.hidden {
+            display: none;
+        }
+
+        .chatbot-toggle.hidden {
+            display: none;
+        }
+
+        /* Responsive Chatbot */
+        @media (max-width: 768px) {
+            .chatbot-widget {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                max-height: 450px;
+            }
+
+            .chatbot-messages {
+                min-height: 250px;
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-widget {
+                width: calc(100% - 20px);
+                right: 10px;
+                left: 10px;
+                bottom: 10px;
+                max-height: 400px;
+            }
+
+            .chatbot-toggle {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#book">Book a Table</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home">
+        <div class="hero-content">
+            <h1>Welcome to Bistro Moderne</h1>
+            <p>Experience culinary excellence in an elegant atmosphere. Where tradition meets innovation.</p>
+            <a href="#book" class="cta-button">Reserve Your Table</a>
+        </div>
+    </section>
+
+    <!-- Introduction -->
+    <div class="intro">
+        <h2>Our Story</h2>
+        <p>At Bistro Moderne, we believe in creating unforgettable dining experiences. Our chefs craft each dish with passion and precision, using only the finest locally-sourced ingredients. Whether you're celebrating a special occasion or enjoying a casual evening out, we promise a memorable culinary journey.</p>
+    </div>
+
+    <!-- Menu Section -->
+    <section id="menu">
+        <h2>Our Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Appetizers</h3>
+                <p>Start your meal with our exquisite selection of appetizers, from fresh salads to gourmet starters.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Main Courses</h3>
+                <p>Indulge in our signature dishes featuring premium meats, fresh seafood, and vegetarian delights.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Desserts</h3>
+                <p>End your meal on a sweet note with our handcrafted desserts and artisanal pastries.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Book a Table Section -->
+    <section id="book">
+        <h2>Book a Table</h2>
+        <form class="booking-form">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+            <div class="form-group">
+                <label for="time">Time</label>
+                <input type="time" id="time" name="time" required>
+            </div>
+            <div class="form-group">
+                <label for="guests">Number of Guests</label>
+                <input type="number" id="guests" name="guests" min="1" max="20" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Special Requests</label>
+                <textarea id="message" name="message" placeholder="Dietary restrictions, special occasions, etc."></textarea>
+            </div>
+            <button type="submit" class="submit-button">Book Now</button>
+        </form>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-content">
+            <div class="contact-item">
+                <h3>Location</h3>
+                <p>123 Main Street<br>Downtown City<br>State 12345</p>
+            </div>
+            <div class="contact-item">
+                <h3>Hours</h3>
+                <p>Monday - Friday: 11am - 10pm<br>Saturday - Sunday: 10am - 11pm</p>
+            </div>
+            <div class="contact-item">
+                <h3>Get in Touch</h3>
+                <p>Phone: (555) 123-4567<br>Email: info@bistromoderne.com</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Bistro Moderne. All rights reserved.</p>
+    </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-widget hidden">
+        <div class="chatbot-header">
+            Chat with Us!
+            <button class="chatbot-close" id="chatClose">&times;</button>
+        </div>
+        <div class="chatbot-messages" id="chatMessages">
+            <div class="chatbot-message bot">
+                Hello! Welcome to Bistro Moderne. How can we help you today?
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" class="chatbot-input" id="chatInput" placeholder="Type your message...">
+            <button class="chatbot-send-btn" id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <!-- Chatbot Toggle Button -->
+    <button class="chatbot-toggle" id="chatToggle">💬</button>
+
+    <script>
+        // Chatbot functionality
+        const chatWidget = document.querySelector('.chatbot-widget');
+        const chatToggle = document.getElementById('chatToggle');
+        const chatClose = document.getElementById('chatClose');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatMessages = document.getElementById('chatMessages');
+
+        // Open chatbot
+        chatToggle.addEventListener('click', () => {
+            chatWidget.classList.remove('hidden');
+            chatToggle.classList.add('hidden');
+            chatInput.focus();
+        });
+
+        // Close chatbot
+        chatClose.addEventListener('click', () => {
+            chatWidget.classList.add('hidden');
+            chatToggle.classList.remove('hidden');
+        });
+
+        // Get bot response based on keywords
+        function getBotResponse(message) {
+            const lowerMessage = message.toLowerCase();
+
+            // Check for hours/time keywords
+            if (lowerMessage.includes('hour') || lowerMessage.includes('time') || lowerMessage.includes('open') || lowerMessage.includes('close')) {
+                return 'We are open Monday - Friday: 11am - 10pm and Saturday - Sunday: 10am - 11pm. Looking forward to serving you!';
+            }
+
+            // Check for menu keywords
+            if (lowerMessage.includes('menu') || lowerMessage.includes('food') || lowerMessage.includes('dish') || lowerMessage.includes('eat')) {
+                return 'You can view our delicious menu <a href="#menu" style="color: #d4af37; font-weight: 600; text-decoration: underline;">here</a>. We offer appetizers, main courses, and desserts!';
+            }
+
+            // Check for location/address keywords
+            if (lowerMessage.includes('location') || lowerMessage.includes('address') || lowerMessage.includes('where') || lowerMessage.includes('find')) {
+                return 'We are located at 123 Main Street, Downtown City, State 12345. We can\'t wait to see you!';
+            }
+
+            // Check for reservation/booking keywords
+            if (lowerMessage.includes('book') || lowerMessage.includes('reserv') || lowerMessage.includes('table')) {
+                return 'You can make a reservation <a href="#book" style="color: #d4af37; font-weight: 600; text-decoration: underline;">here</a>. We look forward to hosting you!';
+            }
+
+            // Check for contact keywords
+            if (lowerMessage.includes('contact') || lowerMessage.includes('phone') || lowerMessage.includes('email') || lowerMessage.includes('call')) {
+                return 'You can reach us at (555) 123-4567 or email us at info@bistromoderne.com. We\'re here to help!';
+            }
+
+            // Check for price/cost keywords
+            if (lowerMessage.includes('price') || lowerMessage.includes('cost') || lowerMessage.includes('expensive') || lowerMessage.includes('cheap')) {
+                return 'Our prices vary by dish. Please check our <a href="#menu" style="color: #d4af37; font-weight: 600; text-decoration: underline;">menu</a> or call us at (555) 123-4567 for specific pricing information.';
+            }
+
+            // Check for greeting keywords
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return 'Hello! Welcome to Bistro Moderne. How can I assist you today?';
+            }
+
+            // Check for thank you keywords
+            if (lowerMessage.includes('thank') || lowerMessage.includes('thanks')) {
+                return 'You\'re welcome! Is there anything else I can help you with?';
+            }
+
+            // Default response
+            return 'Thanks for your message! Someone will be with you shortly.';
+        }
+
+        // Send message function
+        function sendMessage() {
+            const message = chatInput.value.trim();
+            if (message) {
+                // Add user message
+                const userMsg = document.createElement('div');
+                userMsg.className = 'chatbot-message user';
+                userMsg.textContent = message;
+                chatMessages.appendChild(userMsg);
+
+                // Clear input
+                chatInput.value = '';
+
+                // Scroll to bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Get bot response
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'chatbot-message bot';
+                    botMsg.innerHTML = getBotResponse(message);
+                    chatMessages.appendChild(botMsg);
+                    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                    // Add click listeners to anchor tags
+                    const links = botMsg.querySelectorAll('a');
+                    links.forEach(link => {
+                        link.addEventListener('click', () => {
+                            chatWidget.classList.add('hidden');
+                            chatToggle.classList.remove('hidden');
+                        });
+                    });
+                }, 800);
+            }
+        }
+
+        // Send on button click
+        sendBtn.addEventListener('click', sendMessage);
+
+        // Send on Enter key
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // Booking Form Validation
+        const bookingForm = document.querySelector('.booking-form');
+        
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const date = document.getElementById('date').value;
+            const time = document.getElementById('time').value;
+            const guests = document.getElementById('guests').value;
+            
+            // Validation
+            let errorMessage = '';
+            
+            if (!name) {
+                errorMessage += 'Please enter your full name.\n';
+            }
+            
+            if (!email) {
+                errorMessage += 'Please enter your email address.\n';
+            } else if (!isValidEmail(email)) {
+                errorMessage += 'Please enter a valid email address.\n';
+            }
+            
+            if (!phone) {
+                errorMessage += 'Please enter your phone number.\n';
+            }
+            
+            if (!date) {
+                errorMessage += 'Please select a date.\n';
+            } else if (!isValidDate(date)) {
+                errorMessage += 'Please select a future date.\n';
+            }
+            
+            if (!time) {
+                errorMessage += 'Please select a time.\n';
+            }
+            
+            if (!guests || guests < 1) {
+                errorMessage += 'Please enter the number of guests.\n';
+            }
+            
+            // Display result
+            if (errorMessage) {
+                alert('Booking Error:\n\n' + errorMessage);
+            } else {
+                // Success message
+                alert('Thank you for your booking! We have received your request.\n\nBooking Details:\nName: ' + name + '\nEmail: ' + email + '\nPhone: ' + phone + '\nDate: ' + date + '\nTime: ' + time + '\nGuests: ' + guests);
+                
+                // Optional: Reset form
+                bookingForm.reset();
+                
+                // Optional: Scroll to top
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+        
+        // Email validation function
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Date validation function (check if date is in the future)
+        function isValidDate(dateString) {
+            const selectedDate = new Date(dateString);
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            return selectedDate >= today;
+        }
+    </script>
+</body>
+</html>
